@@ -6,7 +6,7 @@
     <meta name="description" content="Servicios especializados de AV Solutions: Arquitectura, Extinción y Detección Contra Incendios. Diseño, instalación y mantenimiento bajo normativas NFPA.">
     <title>Servicios - AV Solutions | Arquitectura e Ingeniería Contra Incendios</title>
 
-    <link rel="icon" type="image/svg+xml" href="img/Logo_del_Cliente.svg">
+    <link rel="icon" type="image/png" href="img/Logo_del_Cliente.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
         <div class="container">
             <nav class="nav" aria-label="Navegación principal">
                 <a href="index.html" class="nav-logo" aria-label="AV Solutions - Inicio">
-                    <img src="img/Logo_del_Cliente.svg" alt="AV Solutions">
+                    <img src="img/Logo_del_Cliente.png" alt="AV Solutions">
                 </a>
 
                 <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
@@ -30,6 +30,7 @@
 
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="quienes-somos.html" class="nav-link">Quiénes Somos</a></li>
                     <li><a href="servicios.html" class="nav-link is-active">Servicios</a></li>
                     <li><a href="index.html#proyectos" class="nav-link">Proyectos</a></li>
                     <li><a href="index.html#certificaciones" class="nav-link">Certificaciones</a></li>
@@ -78,8 +79,21 @@
                     <a href="contactanos.html" class="btn btn-dark btn-arrow">Solicitar este servicio</a>
                 </div>
 
-                <div class="servicio-detalle-visual reveal">
-                    <img src="img/Servicios/ArquitecturaYPlanificación_1.svg" alt="Arquitectura y Planificación">
+                <div class="servicio-detalle-visual sd-carousel reveal">
+                    <div class="sd-carousel-track">
+                        <img src="img/Servicios/ArquitecturaYPlanificación_1.svg" alt="Arquitectura y Planificación – BIM">
+                        <img src="img/Servicios/ArqPlani_extra1.jpg" alt="Arquitectura y Planificación – Proyecto 2">
+                        <img src="img/Servicios/ArqPlani_extra2.jpg" alt="Arquitectura y Planificación – Proyecto 3">
+                        <img src="img/Servicios/ArqPlani_extra3.png" alt="Arquitectura y Planificación – Proyecto 4">
+                        <img src="img/Servicios/ArqPlani_extra4.png" alt="Arquitectura y Planificación – Proyecto 5">
+                    </div>
+                    <button class="sd-carousel-btn prev" aria-label="Anterior">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    </button>
+                    <button class="sd-carousel-btn next" aria-label="Siguiente">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                    <div class="sd-carousel-dots"></div>
                     <div class="visual-tag">
                         <strong>BIM &amp; REVIT</strong>
                         Modelado profesional con resolución de interferencias entre disciplinas.
@@ -216,7 +230,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="index.html" class="footer-brand-logo" aria-label="AV Solutions - Inicio">
-                        <img src="img/Logo_del_Cliente.svg" alt="AV Solutions">
+                        <img src="img/Logo_del_Cliente.png" alt="AV Solutions">
                     </a>
                     <p>Especialistas en Arquitectura e Ingeniería Contra Incendios. Protegemos vidas y propiedades aplicando normativas internacionales NFPA y exigencias locales.</p>
                 </div>
@@ -225,6 +239,7 @@
                     <h5>Navegación</h5>
                     <ul>
                         <li><a href="index.html">Inicio</a></li>
+                        <li><a href="quienes-somos.html">Quiénes Somos</a></li>
                         <li><a href="servicios.html">Servicios</a></li>
                         <li><a href="index.html#proyectos">Proyectos</a></li>
                         <li><a href="index.html#certificaciones">Certificaciones</a></li>
@@ -271,6 +286,43 @@
 
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
     <script src="js/script.js"></script>
+    <script>
+    document.querySelectorAll('.sd-carousel').forEach(function (carousel) {
+        const track  = carousel.querySelector('.sd-carousel-track');
+        const imgs   = track.querySelectorAll('img');
+        const dotsEl = carousel.querySelector('.sd-carousel-dots');
+        const total  = imgs.length;
+        let current  = 0;
+        let timer;
+
+        // Crear dots
+        imgs.forEach(function (_, i) {
+            const d = document.createElement('button');
+            d.className = 'dot' + (i === 0 ? ' is-active' : '');
+            d.setAttribute('aria-label', 'Imagen ' + (i + 1));
+            d.addEventListener('click', function () { goTo(i); resetTimer(); });
+            dotsEl.appendChild(d);
+        });
+
+        function goTo(idx) {
+            current = (idx + total) % total;
+            track.style.transform = 'translateX(-' + (current * 100) + '%)';
+            dotsEl.querySelectorAll('.dot').forEach(function (d, i) {
+                d.classList.toggle('is-active', i === current);
+            });
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timer = setInterval(function () { goTo(current + 1); }, 4000);
+        }
+
+        carousel.querySelector('.prev').addEventListener('click', function () { goTo(current - 1); resetTimer(); });
+        carousel.querySelector('.next').addEventListener('click', function () { goTo(current + 1); resetTimer(); });
+
+        resetTimer();
+    });
+    </script>
 
 </body>
 </html>

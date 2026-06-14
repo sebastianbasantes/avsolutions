@@ -1198,6 +1198,7 @@ section {
     background: var(--color-gris-700);
 }
 
+/* imagen simple (servicios sin carrusel) */
 .servicio-detalle-visual > img {
     position: absolute;
     inset: 0;
@@ -1209,6 +1210,72 @@ section {
 
 .servicio-detalle-visual:hover > img {
     transform: scale(1.04);
+}
+
+/* carrusel de servicio */
+.sd-carousel .sd-carousel-track {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sd-carousel .sd-carousel-track img {
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+    position: static;
+    transition: none;
+}
+
+.sd-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.sd-carousel-btn:hover { background: var(--color-verde); }
+.sd-carousel-btn svg { width: 18px; height: 18px; stroke: #fff; }
+.sd-carousel-btn.prev { left: 12px; }
+.sd-carousel-btn.next { right: 12px; }
+
+.sd-carousel-dots {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 3;
+}
+
+.sd-carousel-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.sd-carousel-dots .dot.is-active {
+    background: var(--color-verde);
+    transform: scale(1.35);
 }
 
 .servicio-detalle-visual::after {
@@ -1508,6 +1575,80 @@ section {
     font-size: 0.78rem;
     font-weight: 600;
     border-radius: 100px;
+}
+
+/* Certificados dentro de la card */
+.manager-certs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+    border-top: 1px solid var(--color-gris-300);
+    padding-top: 16px;
+}
+
+.cert-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-gris-700);
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.cert-link:hover {
+    background: var(--color-verde-suave);
+    color: var(--color-negro);
+}
+
+.cert-link svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    stroke: var(--color-verde-oscuro);
+}
+
+/* Carrusel de equipo */
+.team-carousel {
+    overflow: hidden;
+    position: relative;
+}
+
+.team-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.team-track .manager-card {
+    min-width: 100%;
+    flex-shrink: 0;
+}
+
+.team-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.team-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-gris-300);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.team-dot.is-active {
+    background: var(--color-verde);
+    transform: scale(1.3);
 }
 
 /* ==========================================================================
@@ -1898,4 +2039,163 @@ section {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+}
+
+/* ============= QUIÉNES SOMOS ============= */
+
+/* — Sección intro — */
+.qs-section {
+    padding: 80px 0 60px;
+    background: var(--color-blanco);
+}
+
+.qs-intro {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.qs-intro p {
+    color: var(--color-gris-500);
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin-bottom: 1.1rem;
+}
+
+.qs-intro p:last-child { margin-bottom: 0; }
+
+/* — Pilares / estadísticas — */
+.qs-pilares {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 56px;
+}
+
+.qs-pilar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 2rem 1.25rem;
+    background: var(--color-gris-100);
+    border-radius: 16px;
+    border-bottom: 3px solid var(--color-verde);
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.qs-pilar:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+
+.qs-pilar-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--color-verde);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qs-pilar-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-negro);
+}
+
+.qs-pilar-num {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--color-gris-900);
+    line-height: 1;
+}
+
+.qs-pilar-label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-gris-500);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* — Sección Misión / Visión — */
+.qs-mv-section {
+    padding: 80px 0 96px;
+    background: var(--color-gris-100);
+    position: relative;
+    overflow: hidden;
+}
+
+.qs-mv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.qs-mv-card {
+    background: var(--color-blanco);
+    border: 1px solid var(--color-gris-300);
+    border-top: 3px solid var(--color-verde);
+    border-radius: 16px;
+    padding: 2.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.qs-mv-card:hover {
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
+}
+
+.qs-mv-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.qs-mv-icon {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    background: var(--color-verde);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qs-mv-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke: var(--color-negro);
+}
+
+.qs-mv-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-gris-900);
+    margin: 0;
+}
+
+.qs-mv-card p {
+    color: var(--color-gris-500);
+    font-size: 0.975rem;
+    line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+    .qs-pilares { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+    .qs-pilares { grid-template-columns: 1fr 1fr; }
+    .qs-mv { grid-template-columns: 1fr; }
 }

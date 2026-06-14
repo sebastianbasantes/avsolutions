@@ -6,7 +6,7 @@
     <meta name="description" content="Contáctanos para asesoría en sistemas contra incendios. AV Solutions - Ecuador. Andrés Vera Rivera, Ingeniero Civil, Gerente de Proyectos.">
     <title>Contáctanos - AV Solutions | Arquitectura e Ingeniería Contra Incendios</title>
 
-    <link rel="icon" type="image/svg+xml" href="img/Logo_del_Cliente.svg">
+    <link rel="icon" type="image/png" href="img/Logo_del_Cliente.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
         <div class="container">
             <nav class="nav" aria-label="Navegación principal">
                 <a href="index.html" class="nav-logo" aria-label="AV Solutions - Inicio">
-                    <img src="img/Logo_del_Cliente.svg" alt="AV Solutions">
+                    <img src="img/Logo_del_Cliente.png" alt="AV Solutions">
                 </a>
 
                 <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
@@ -234,16 +234,58 @@
                         </div>
                     </div>
 
-                    <div class="manager-card">
-                        <div class="manager-photo">
-                            <img src="img/Foto_Cliente.svg" alt="Andrés Vera Rivera">
+                    <!-- Carrusel de equipo -->
+                    <div class="team-carousel">
+                        <div class="team-track">
+
+                            <!-- Andrés -->
+                            <div class="manager-card">
+                                <div class="manager-photo">
+                                    <img src="img/Foto_Cliente.svg" alt="Andrés Vera Rivera">
+                                </div>
+                                <h4>Andrés Vera Rivera</h4>
+                                <p class="role">Ingeniero Civil — Gerente de Proyectos</p>
+                                <div class="badges">
+                                    <span class="badge">NFPA</span>
+                                    <span class="badge">BOSCH Certified</span>
+                                    <span class="badge">10+ años</span>
+                                </div>
+                            </div>
+
+                            <!-- Mayra -->
+                            <div class="manager-card">
+                                <div class="manager-photo">
+                                    <img src="img/foto_mae.png" alt="Mayra Arévalo">
+                                </div>
+                                <h4>Mayra Arévalo</h4>
+                                <p class="role">Ingeniera Electromecánica — Dirección de Obras</p>
+                                <div class="badges">
+                                    <span class="badge">Máster Electricidad</span>
+                                    <span class="badge">Energías Renovables</span>
+                                    <span class="badge">Eficiencia Energética</span>
+                                </div>
+                            </div>
+
+                            <!-- José -->
+                            <div class="manager-card">
+                                <div class="manager-photo">
+                                    <img src="img/foto_jose.png" alt="José Gabriel Vera">
+                                </div>
+                                <h4>José Gabriel Vera</h4>
+                                <p class="role">Arquitecto — Coordinador de Proyectos</p>
+                                <div class="badges">
+                                    <span class="badge">NFPA</span>
+                                    <span class="badge">Analista Seg. Humana</span>
+                                </div>
+                            </div>
+
                         </div>
-                        <h4>Andrés Vera Rivera</h4>
-                        <p class="role">Ingeniero Civil — Gerente de Proyectos</p>
-                        <div class="badges">
-                            <span class="badge">NFPA</span>
-                            <span class="badge">BOSCH Certified</span>
-                            <span class="badge">10+ años</span>
+
+                        <!-- Controles -->
+                        <div class="team-dots" role="tablist" aria-label="Perfil del equipo">
+                            <button class="team-dot is-active" role="tab" aria-selected="true" aria-label="Andrés Vera"></button>
+                            <button class="team-dot" role="tab" aria-selected="false" aria-label="Mayra Arévalo"></button>
+                            <button class="team-dot" role="tab" aria-selected="false" aria-label="José Gabriel Vera"></button>
                         </div>
                     </div>
                 </div>
@@ -258,7 +300,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="index.html" class="footer-brand-logo" aria-label="AV Solutions - Inicio">
-                        <img src="img/Logo_del_Cliente.svg" alt="AV Solutions">
+                        <img src="img/Logo_del_Cliente.png" alt="AV Solutions">
                     </a>
                     <p>Especialistas en Arquitectura e Ingeniería Contra Incendios. Protegemos vidas y propiedades aplicando normativas internacionales NFPA y exigencias locales.</p>
                 </div>
@@ -313,6 +355,37 @@
 
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
     <script src="js/script.js"></script>
+    <script>
+    (function () {
+        const track = document.querySelector('.team-track');
+        const dots  = document.querySelectorAll('.team-dot');
+        if (!track || !dots.length) return;
+
+        let current = 0;
+        const total = dots.length;
+        let timer;
+
+        function goTo(idx) {
+            current = (idx + total) % total;
+            track.style.transform = 'translateX(-' + (current * 100) + '%)';
+            dots.forEach((d, i) => {
+                d.classList.toggle('is-active', i === current);
+                d.setAttribute('aria-selected', i === current);
+            });
+        }
+
+        function next() { goTo(current + 1); }
+
+        function startAuto() { timer = setInterval(next, 3500); }
+        function stopAuto()  { clearInterval(timer); }
+
+        dots.forEach((d, i) => {
+            d.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); });
+        });
+
+        startAuto();
+    })();
+    </script>
 
 </body>
 </html>
