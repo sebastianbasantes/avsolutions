@@ -283,21 +283,37 @@
         submitBtn.textContent = 'Enviando...';
 
         try {
-            // Verificar que Forminit esté disponible
-            if (typeof window.forminit === 'undefined' || typeof window.forminit.submit !== 'function') {
+            // El SDK expone window.Forminit (capital F) y requiere instanciarse
+            const ForminitSDK = window.Forminit || window.forminit;
+            if (typeof ForminitSDK === 'undefined') {
                 throw new Error('SDK de Forminit no disponible');
             }
 
-            const response = await window.forminit.submit(FORM_ID, formData);
+            // Instanciar con apiKey = FORM_ID (ajustar si se tiene API key separada)
+            const client = typeof ForminitSDK === 'function'
+                ? new ForminitSDK({ apiKey: FORM_ID })
+                : ForminitSDK;
 
-            // Forminit puede devolver distintos formatos, manejamos ambos casos
-            const success = response && (response.success === true || response.ok === true || response.status === 'success' || (response.status >= 200 && response.status < 300));
+            const submitFn = client.submit
+                ? client.submit.bind(client)
+                : ForminitSDK.submit
+                    ? ForminitSDK.submit.bind(ForminitSDK)
+                    : null;
 
-            if (success || response === undefined) {
+            if (!submitFn) throw new Error('Método submit no encontrado en SDK');
+
+            const response = await submitFn(FORM_ID, formData);
+
+            console.log('Forminit response:', response);
+
+            // Considerar éxito si no hay campo error en la respuesta
+            const hasError = response && response.error;
+
+            if (!hasError) {
                 showMessage('¡Mensaje enviado con éxito! Te contactaremos pronto.', 'success');
                 form.reset();
             } else {
-                throw new Error((response && response.message) || 'No se pudo enviar el mensaje');
+                throw new Error(response.error || 'No se pudo enviar el mensaje');
             }
         } catch (err) {
             console.error('Error al enviar formulario:', err);
